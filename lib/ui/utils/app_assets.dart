@@ -8,4 +8,5 @@ class AppAssets {
   static const String mosque011 = 'assets/images/Mosque-01 1.png';
   static const String quran = 'assets/images/quran.png';
   static const String splashScreen = 'assets/images/SplashScreen.png';
+  static const String frame2 = 'assets/images/Frame 3.png';
 }
