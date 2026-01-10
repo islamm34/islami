@@ -26,7 +26,7 @@ class IntoScreen2 extends StatelessWidget {
             top: 250,
             left: 0,
             right: 0,
-            child: Image.asset(AppAssets.frame2),
+            child: Image.asset(AppAssets.frame),
           ),
           Positioned(
             top: 700,

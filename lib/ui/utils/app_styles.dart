@@ -1,32 +1,40 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:islami/ui/utils/app_colors.dart';
 
-abstract final class StyleApp {
-  static final TextStyle WhiteBold20 = TextStyle(
+abstract final class AppStyles {
+  static const TextStyle whiteBold20 = TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.bold,
     color: AppColors.white,
-  );static final TextStyle WhiteBold14 = TextStyle(
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle whiteBold14 = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.bold,
     color: AppColors.white,
-  );static final TextStyle WhiteBold16 = TextStyle(
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle whiteBold16 = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.bold,
     color: AppColors.white,
-  );static final TextStyle goldBold20 = TextStyle(
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle goldBold20 = TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.bold,
     color: AppColors.gold,
-  );static final TextStyle lightBlack16 = TextStyle(
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle lightBlackBold16 = TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.bold,
     color: AppColors.lightBlack,
-  );static final TextStyle lightBlack24 = TextStyle(
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle lightBlackBold14 = TextStyle(
+    fontSize: 14,
+    color: AppColors.lightBlack,
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle lightBlackBold24 = TextStyle(
     fontSize: 24,
-    fontWeight: FontWeight.bold,
     color: AppColors.lightBlack,
+    fontWeight: FontWeight.bold,
   );
 }

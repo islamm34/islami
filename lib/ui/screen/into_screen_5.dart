@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:islami/ui/screen/into_screen_3.dart';
-import 'package:islami/ui/screen/into_screen_5.dart';
+import 'package:islami/ui/home_screens/home.dart';
+import 'package:islami/ui/screen/intro_screen_4.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import 'package:islami/ui/utils/app_colors.dart';
 
-class IntroScreen4 extends StatelessWidget {
-  const IntroScreen4({super.key});
-static const routeName = '/into4';
+class IntoScreen5 extends StatelessWidget {
+  const IntoScreen5({super.key});
+  static const routeName = '/into5';
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -20,18 +21,18 @@ static const routeName = '/into4';
               child: Image.asset(AppAssets.imgHeader),
             ),
             Positioned(
-              top: 250,
-              left: 0,
+              top: 240,
               right: 0,
-              child: Image.asset(AppAssets.frame),
-            ),
+              left: 0,
+              child:
+            Image.asset(AppAssets.splash5 ),),
             Positioned(
               top: 700,
               left: 20,
               right: 20,
               child: Center(
                 child: Text(
-                  "Bearish",
+                  "   Holy Quran Radio",
                   style: TextStyle(
                     color: AppColors.gold,
                     fontSize: 24,
@@ -46,7 +47,7 @@ static const routeName = '/into4';
               right: 20,
               child: Center(
                 child: Text(
-                  "Praise the name of your Lord, the Most High",
+                  "    You can listen to the Holy Quran Radio \n through the application for free and easily ",
                   style: TextStyle(
                     color: AppColors.gold,
                     fontSize: 18,
@@ -57,7 +58,7 @@ static const routeName = '/into4';
             ),
             Positioned(
               bottom: 20,
-              left: 300,
+              left: 320,
               right: 20,
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -66,7 +67,7 @@ static const routeName = '/into4';
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const IntoScreen5(),
+                        builder: (context) => const HomeScreen(),
                       ),
                     );
                   },
@@ -74,7 +75,7 @@ static const routeName = '/into4';
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'NEXT',
+                      'Finish',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w900,
@@ -96,7 +97,7 @@ static const routeName = '/into4';
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const IntoScreen3(),
+                        builder: (context) => const IntroScreen4(),
                       ),
                     );
                   },
@@ -116,8 +117,7 @@ static const routeName = '/into4';
               ),
             ),
           ],
-
         )
-    );;
+    );
   }
 }
