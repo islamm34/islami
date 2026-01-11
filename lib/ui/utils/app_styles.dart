@@ -36,5 +36,9 @@ abstract final class AppStyles {
     fontSize: 24,
     color: AppColors.lightBlack,
     fontWeight: FontWeight.bold,
+  ); static const TextStyle goldBold24 = TextStyle(
+    fontSize: 24,
+    color: AppColors.gold,
+    fontWeight: FontWeight.bold,
   );
 }

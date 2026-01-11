@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islami/ui/home_screens/tabs/ahdeath/hadeth_screen.dart';
 import 'package:islami/ui/home_screens/tabs/quran/quran.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import 'package:islami/ui/utils/app_colors.dart';
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedTabIndex = 0;
  List<Widget> tabs =[
    Quran(),
-   Container(color: Colors.green),
+   Hadeth(),
    Container(color: Colors.blue),
    Container(color: Colors.red),
    Container(color: Colors.black),

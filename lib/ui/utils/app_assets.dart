@@ -44,4 +44,5 @@ class AppAssets {
   static const String icTime3x             = 'assets/images/3.0x/ic_time.png';
   static const String img_left_cornergold     = 'assets/images/img_left_corner.png';
   static const String img_right_cornergold      = 'assets/images/img_right_corner.png';
+  static const String hadith_bg      = 'assets/images/hadith_bg.png';
 }

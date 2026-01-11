@@ -8,7 +8,7 @@ import 'package:islami/ui/utils/app_styles.dart';
 class SuraDetails extends StatefulWidget {
   static const routeName = "SuraDetails";
 
-  SuraDetails({super.key});
+  const SuraDetails({super.key});
 
   @override
   State<SuraDetails> createState() => _SuraDetailsState();
@@ -18,46 +18,78 @@ class _SuraDetailsState extends State<SuraDetails> {
   late SuraDM sura;
 
   String suraCount = "";
-
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      readFile();
+    });
+  }
   @override
   Widget build(BuildContext context) {
     sura = ModalRoute.of(context)!.settings.arguments as SuraDM;
-    readFile();
+    // if (suraCount.isEmpty) {readFile();}
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.transparent,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Image.asset(AppAssets.img_left_cornergold),
-                 Spacer(),
-                Text(
-                  sura.nameAr,
-                  style: AppStyles.goldBold20,
-                ),
-                 Spacer(),
-                Image.asset(AppAssets.img_right_cornergold),
-                 Spacer(),
-              ],
-            ),
-            Text(
-              sura.nameEn,
-              style: AppStyles.goldBold20,
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              suraCount,
-              style: AppStyles.goldBold20,
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.center,
-            ),
-          ],
+        iconTheme: IconThemeData(color: AppColors.gold),
+        title: Text(
+          sura.nameEn,
+          style: AppStyles.goldBold24,
+          textAlign: TextAlign.center,
         ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight:
+                      MediaQuery.of(context).size.height -
+                      AppBar().preferredSize.height -
+                      MediaQuery.of(context).padding.top,
+                ),
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 18.0,right: 18,top: 18),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(AppAssets.img_left_cornergold),
+                            Spacer(),
+                            Text(sura.nameAr, style: AppStyles.goldBold24),
+                            Spacer(),
+                            Image.asset(AppAssets.img_right_cornergold),
+                          ],
+                        ),
+
+                        // Your existing Verse Count
+                        SizedBox(height: 20),
+                        Text(
+                          suraCount,
+                          style: AppStyles.goldBold20,
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.right,
+                        ),
+
+                        // The "Logic" fix: This Spacer pushes the image down
+                        // even if the Surah text is very short.
+                        Spacer(),
+
+                        Image.asset(AppAssets.mosque),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
