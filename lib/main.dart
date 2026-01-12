@@ -8,6 +8,7 @@ import 'package:islami/ui/screen/into_screen.dart';
 import 'package:islami/ui/screen/suras_details/sura_details.dart';
 
 import 'ui/screen/into_screen_5.dart';
+import 'ui/screen/suras_details/hadeth_details.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           IntroScreen4.routeName: (_) =>  IntroScreen4(),
           IntoScreen5.routeName: (_) =>  IntoScreen5(),
           SuraDetails.routeName: (_) =>  SuraDetails(),
+          hadeth_details.routeName: (_) =>  hadeth_details(),
         },
       initialRoute: Splash.routeName,
     );

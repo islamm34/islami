@@ -45,4 +45,6 @@ class AppAssets {
   static const String img_left_cornergold     = 'assets/images/img_left_corner.png';
   static const String img_right_cornergold      = 'assets/images/img_right_corner.png';
   static const String hadith_bg      = 'assets/images/hadith_bg.png';
+  static const String Background_hadeth      = 'assets/images/Background_hadeth.png';
+  static const String HadithCardBackGround       = 'assets/images/HadithCardBackGround 1.png';
 }

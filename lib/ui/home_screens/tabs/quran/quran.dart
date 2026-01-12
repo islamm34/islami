@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:islami/ui/utils/app_styles.dart';
 import 'package:islami/ui/utils/constants.dart';
-
 import '../../../screen/suras_details/sura_details.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
 
-class Quran extends StatelessWidget {
-  const Quran({super.key});
+class Quran extends StatefulWidget {
+  Quran({super.key});
 
   @override
+  State<Quran> createState() => _QuranState();
+}
+
+class _QuranState extends State<Quran> {
+  List<SuraDM> filteredSuras = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the filtered list with all suras at the start
+    filteredSuras = suras;
+  }
+
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -29,7 +41,6 @@ class Quran extends StatelessWidget {
           buildSuraNameTextFiled(),
           const SizedBox(height: 16),
           Text("Suras List", style: AppStyles.whiteBold16),
-          // Fixed: Added the required SuraDM argument (placeholder)
           Expanded(flex: 7, child: buildSuraNameList()),
         ],
       ),
@@ -57,17 +68,28 @@ class Quran extends StatelessWidget {
       ),
       cursorColor: AppColors.gold,
       style: AppStyles.whiteBold16,
+      onChanged: (query) {
+        if (query.trim().isEmpty) {
+          filteredSuras = suras;
+        } else {
+          filteredSuras = suras.where((suras) {
+            return suras.nameEn.toLowerCase().contains(query.toLowerCase())||
+                suras.nameAr.toLowerCase().contains(query.toLowerCase());
+          }).toList();
+        }
+        setState(() {});
+      },
     );
   }
 
   Widget buildSuraNameList() {
     return ListView.separated(
-      itemCount: suras.length,
+      itemCount: filteredSuras.length,
       separatorBuilder: (context, index) =>
-          const Divider(color: AppColors.gold, thickness: 1),
+          const Divider(color: AppColors.gold),
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
-        return buildSuraNameItem(context, suras[index]);
+        return buildSuraNameItem(context, filteredSuras[index]);
       },
     );
   }
@@ -110,8 +132,6 @@ class SuraDM {
   String verses;
   int index;
 
-  // Fixed: In Dart, 'required' must be inside curly braces for named parameters,
-  // or just use positional parameters.
   SuraDM({
     required this.nameEn,
     required this.nameAr,
