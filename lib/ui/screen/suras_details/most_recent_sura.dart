@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import 'package:islami/ui/utils/app_styles.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../home_screens/tabs/quran/quran.dart';
 import '../../utils/app_colors.dart';
 
@@ -38,10 +37,4 @@ class MostRecentSura extends StatelessWidget {
       ),
     );
   }
-}
-void saveSurasToSharedPreferences(SuraDM sura) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  prefs.setStringList('recentSuras',[sura.suraIdex] );
-
 }

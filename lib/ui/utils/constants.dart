@@ -1,5 +1,4 @@
 import '../home_screens/tabs/quran/quran.dart';
-
 List<SuraDM> suras = [
   SuraDM(nameEn: "Al-Fatiha", nameAr: "الفاتحه", verses: "7", suraIdex: "1"),
   SuraDM(nameEn: "Al-Baqarah", nameAr: "البقرة", verses: "286", suraIdex: "2"),

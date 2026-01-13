@@ -99,4 +99,5 @@ class _SuraDetailsState extends State<SuraDetails> {
     suraCount = suralines.join();
     setState(() {});
   }
+
 }

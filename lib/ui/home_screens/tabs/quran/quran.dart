@@ -16,19 +16,46 @@ class Quran extends StatefulWidget {
 
 class _QuranState extends State<Quran> {
   List<SuraDM> filteredSuras = suras;
-  List<SuraDM> MostRecentSuras = [];
+  List<SuraDM> mostRecentSuras = [];
 
   Future<void> loadSurasFromSharedPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? surasIndex = prefs.getStringList("recentSuras");
-    if (surasIndex == null) return;
-    MostRecentSuras= surasIndex.map((surasIndex){
-      int index= int.parse(surasIndex);
-      return[surasIndex - 1];
-    }).cast<SuraDM>().toList();
-    setState(() {
+    if (surasIndex == null || surasIndex.isEmpty) return;
 
-    });
+    mostRecentSuras = surasIndex.map((suraIndex) {
+      int index = int.parse(suraIndex);
+      return suras[index - 1];
+    }).toList();
+
+    setState(() {});
+  }
+
+  // دالة محسنة للحفظ وتحديث الواجهة
+  Future<void> saveAndUpdateRecentSuras(SuraDM sura) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? currentList = prefs.getStringList('recentSuras') ?? [];
+
+    // إزالة إذا كانت موجودة مسبقًا لتجنب التكرار
+    currentList.remove(sura.suraIdex);
+    // إضافة في البداية
+    currentList.insert(0, sura.suraIdex);
+
+    // الاحتفاظ بآخر 5 فقط
+    if (currentList.length > 5) {
+      currentList = currentList.sublist(0, 5);
+    }
+
+    await prefs.setStringList('recentSuras', currentList);
+
+    // تحديث القائمة المحلية
+    mostRecentSuras = currentList.map((suraIndex) {
+      int index = int.parse(suraIndex);
+      return suras[index - 1];
+    }).toList();
+
+    // تحديث الواجهة
+    setState(() {});
   }
 
   @override
@@ -38,6 +65,9 @@ class _QuranState extends State<Quran> {
     loadSurasFromSharedPreferences();
   }
 
+  @override
+  @override
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -49,16 +79,67 @@ class _QuranState extends State<Quran> {
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Image.asset(AppAssets.imgHeader),
-          const SizedBox(height: 24),
-          buildSuraNameTextFiled(),
-          const SizedBox(height: 16),
-          Text("Suras List", style: AppStyles.whiteBold16),
-          Expanded(flex: 7, child: buildSuraNameList()),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.asset(AppAssets.imgHeader),
+                const SizedBox(height: 24),
+                buildSuraNameTextFiled(),
+                const SizedBox(height: 16),
+                if (mostRecentSuras.isNotEmpty) ...[
+                  Text("Most Recent", style: AppStyles.whiteBold16),
+                  const SizedBox(height: 8),
+                  buildMostRecentSection(),
+                  const SizedBox(height: 16),
+                ],
+                Text("Suras List", style: AppStyles.whiteBold16),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                if (index < filteredSuras.length) {
+                  return Column(
+                    children: [
+                      buildSuraNameItem(context, filteredSuras[index]),
+                      if (index < filteredSuras.length - 1)
+                        const Divider(color: AppColors.gold),
+                    ],
+                  );
+                }
+                return null;
+              },
+              childCount: filteredSuras.length,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+  Widget buildMostRecentSection() {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.15,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: mostRecentSuras.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () async {
+              await saveAndUpdateRecentSuras(mostRecentSuras[index]);
+              Navigator.pushNamed(
+                context,
+                SuraDetails.routeName,
+                arguments: mostRecentSuras[index],
+              );
+            },
+            child: MostRecentSura(sura: mostRecentSuras[index]),
+          );
+        },
       ),
     );
   }
@@ -85,14 +166,12 @@ class _QuranState extends State<Quran> {
       cursorColor: AppColors.gold,
       style: AppStyles.whiteBold16,
       onChanged: (query) {
-        if (query
-            .trim()
-            .isEmpty) {
+        if (query.trim().isEmpty) {
           filteredSuras = suras;
         } else {
-          filteredSuras = suras.where((suras) {
-            return suras.nameEn.toLowerCase().contains(query.toLowerCase()) ||
-                suras.nameAr.toLowerCase().contains(query.toLowerCase());
+          filteredSuras = suras.where((sura) {
+            return sura.nameEn.toLowerCase().contains(query.toLowerCase()) ||
+                sura.nameAr.toLowerCase().contains(query.toLowerCase());
           }).toList();
         }
         setState(() {});
@@ -101,54 +180,53 @@ class _QuranState extends State<Quran> {
   }
 
   Widget buildSuraNameList() {
-    return ListView.separated(
-      itemCount: filteredSuras.length,
-      separatorBuilder: (context, index) =>
-      const Divider(color: AppColors.gold),
-      padding: EdgeInsets.zero,
-      itemBuilder: (context, index) {
-        return buildSuraNameItem(context, filteredSuras[index]);
-      },
-    );
-  }
-}
-
-extension on String {
-  void operator -(int other) {}
-}
-
-Widget buildSuraNameItem(BuildContext context, SuraDM sura) =>
-    InkWell(
-      onTap: () {
-        saveSurasToSharedPreferences(sura);
-        Navigator.pushNamed(context, SuraDetails.routeName, arguments: sura);
-      },
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(AppAssets.surahNumberFrame),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Text(sura.suraIdex, style: AppStyles.whiteBold14),
-          ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(sura.nameEn, style: AppStyles.whiteBold20),
-                Text("${sura.verses} Verses", style: AppStyles.whiteBold14),
-              ],
-            ),
-          ),
-          Text(sura.nameAr, style: AppStyles.whiteBold20),
-        ],
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: ListView.separated(
+        itemCount: filteredSuras.length,
+        separatorBuilder: (context, index) =>
+            const Divider(color: AppColors.gold),
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          return buildSuraNameItem(context, filteredSuras[index]);
+        },
       ),
     );
+  }
+
+  Widget buildSuraNameItem(BuildContext context, SuraDM sura) => InkWell(
+    onTap: () async {
+      await saveAndUpdateRecentSuras(sura);
+
+      Navigator.pushNamed(context, SuraDetails.routeName, arguments: sura);
+    },
+    child: Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppAssets.surahNumberFrame),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Text(sura.suraIdex, style: AppStyles.whiteBold14),
+        ),
+        const SizedBox(width: 24),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(sura.nameEn, style: AppStyles.whiteBold20),
+              Text("${sura.verses} Verses", style: AppStyles.whiteBold14),
+            ],
+          ),
+        ),
+        Text(sura.nameAr, style: AppStyles.whiteBold20),
+      ],
+    ),
+  );
+}
 
 class SuraDM {
   String nameEn;

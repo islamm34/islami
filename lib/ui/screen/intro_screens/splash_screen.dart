@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 1), () {
       Navigator.pushReplacementNamed(context, Splash2.routeName);
     });
   }
