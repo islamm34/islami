@@ -12,6 +12,16 @@ abstract final class AppStyles {
     color: AppColors.white,
     fontWeight: FontWeight.bold,
   );
+  static const TextStyle whiteBold24 = TextStyle(
+    fontSize: 24,
+    color: AppColors.white,
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle whiteBold34 = TextStyle(
+    fontSize: 34,
+    color: AppColors.white,
+    fontWeight: FontWeight.bold,
+  );
   static const TextStyle whiteBold16 = TextStyle(
     fontSize: 16,
     color: AppColors.white,
@@ -36,7 +46,8 @@ abstract final class AppStyles {
     fontSize: 24,
     color: AppColors.lightBlack,
     fontWeight: FontWeight.bold,
-  );static const TextStyle lightBlackBold20 = TextStyle(
+  );
+  static const TextStyle lightBlackBold20 = TextStyle(
     fontSize: 20,
     color: AppColors.lightBlack,
     fontWeight: FontWeight.bold,

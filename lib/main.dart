@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami/ui/home_screens/tabs/ahdeath/hadeth_details.dart';
+import 'package:islami/ui/home_screens/tabs/sebha/sebha.dart';
 import 'package:islami/ui/screen/intro_screens/into_screen.dart';
 import 'package:islami/ui/screen/intro_screens/into_screen_2.dart';
 import 'package:islami/ui/screen/intro_screens/into_screen_3.dart';
@@ -8,8 +9,6 @@ import 'package:islami/ui/screen/intro_screens/intro_screen_4.dart';
 import 'package:islami/ui/screen/intro_screens/splash_2.dart';
 import 'package:islami/ui/screen/intro_screens/splash_screen.dart';
 import 'package:islami/ui/screen/suras_details/sura_details.dart';
-
-
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +28,7 @@ class MyApp extends StatelessWidget {
           IntoScreen5.routeName: (_) =>  IntoScreen5(),
           SuraDetails.routeName: (_) =>  SuraDetails(),
           hadeth_details.routeName: (_) =>  hadeth_details(),
+          Sebha.routeName: (_) =>  Sebha(),
         },
       initialRoute: Splash.routeName,
     );

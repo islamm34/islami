@@ -47,4 +47,7 @@ class AppAssets {
   static const String hadith_bg      = 'assets/images/hadith_bg.png';
   static const String Background_hadeth      = 'assets/images/Background_hadeth.png';
   static const String HadithCardBackGround       = 'assets/images/HadithCardBackGround 1.png';
+  static const String sebha_background       = 'assets/images/sebha_background.png';
+  static const String SebhaBody1       = 'assets/images/SebhaBody 1.png';
+  static const String sebha2       = 'assets/images/sebha2.png';
 }

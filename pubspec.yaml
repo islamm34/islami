@@ -25,3 +25,4 @@ flutter:
     - assets/images/
     - assets/files/quran/
     - assets/files/
+    - assets/data/azkar.json

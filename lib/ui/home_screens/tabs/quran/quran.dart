@@ -31,42 +31,29 @@ class _QuranState extends State<Quran> {
     setState(() {});
   }
 
-  // دالة محسنة للحفظ وتحديث الواجهة
   Future<void> saveAndUpdateRecentSuras(SuraDM sura) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? currentList = prefs.getStringList('recentSuras') ?? [];
 
-    // إزالة إذا كانت موجودة مسبقًا لتجنب التكرار
     currentList.remove(sura.suraIdex);
-    // إضافة في البداية
     currentList.insert(0, sura.suraIdex);
-
-    // الاحتفاظ بآخر 5 فقط
     if (currentList.length > 5) {
       currentList = currentList.sublist(0, 5);
     }
 
     await prefs.setStringList('recentSuras', currentList);
-
-    // تحديث القائمة المحلية
     mostRecentSuras = currentList.map((suraIndex) {
       int index = int.parse(suraIndex);
       return suras[index - 1];
     }).toList();
-
-    // تحديث الواجهة
     setState(() {});
   }
-
   @override
   void initState() {
     super.initState();
     filteredSuras = suras;
     loadSurasFromSharedPreferences();
   }
-
-  @override
-  @override
   @override
   Widget build(BuildContext context) {
     return Container(
