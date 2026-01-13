@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../utils/app_assets.dart';
-import '../utils/app_colors.dart';
+import '../../utils/app_assets.dart';
+import '../../utils/app_colors.dart';
 import 'into_screen.dart';
 
 class Splash2 extends StatelessWidget {

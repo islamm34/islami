@@ -1,8 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../../screen/suras_details/hadeth_details.dart';
+import 'package:islami/ui/home_screens/tabs/ahdeath/hadeth_details.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/app_styles.dart';

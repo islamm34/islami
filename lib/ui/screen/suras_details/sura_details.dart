@@ -29,7 +29,6 @@ class _SuraDetailsState extends State<SuraDetails> {
   @override
   Widget build(BuildContext context) {
     sura = ModalRoute.of(context)!.settings.arguments as SuraDM;
-    // if (suraCount.isEmpty) {readFile();}
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
       appBar: AppBar(
@@ -67,8 +66,6 @@ class _SuraDetailsState extends State<SuraDetails> {
                             Image.asset(AppAssets.img_right_cornergold),
                           ],
                         ),
-
-                        // Your existing Verse Count
                         SizedBox(height: 20),
                         Text(
                           suraCount,
@@ -76,11 +73,7 @@ class _SuraDetailsState extends State<SuraDetails> {
                           textDirection: TextDirection.rtl,
                           textAlign: TextAlign.right,
                         ),
-
-                        // The "Logic" fix: This Spacer pushes the image down
-                        // even if the Surah text is very short.
                         Spacer(),
-
                         Image.asset(AppAssets.mosque),
                       ],
                     ),
@@ -95,7 +88,7 @@ class _SuraDetailsState extends State<SuraDetails> {
   }
 
   Future<void> readFile() async {
-    var fileName = "assets/files/quran/${sura.index}.txt";
+    var fileName = "assets/files/quran/${sura.suraIdex}.txt";
 
     suraCount = await rootBundle.loadString(fileName);
     suraCount = suraCount.trim();

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:islami/ui/screen/into_screen_2.dart';
-import 'package:islami/ui/screen/into_screen_3.dart';
-import 'package:islami/ui/screen/intro_screen_4.dart';
-import 'package:islami/ui/screen/splash_2.dart';
-import 'package:islami/ui/screen/splash_screen.dart';
-import 'package:islami/ui/screen/into_screen.dart';
+import 'package:islami/ui/home_screens/tabs/ahdeath/hadeth_details.dart';
+import 'package:islami/ui/screen/intro_screens/into_screen.dart';
+import 'package:islami/ui/screen/intro_screens/into_screen_2.dart';
+import 'package:islami/ui/screen/intro_screens/into_screen_3.dart';
+import 'package:islami/ui/screen/intro_screens/into_screen_5.dart';
+import 'package:islami/ui/screen/intro_screens/intro_screen_4.dart';
+import 'package:islami/ui/screen/intro_screens/splash_2.dart';
+import 'package:islami/ui/screen/intro_screens/splash_screen.dart';
 import 'package:islami/ui/screen/suras_details/sura_details.dart';
 
-import 'ui/screen/into_screen_5.dart';
-import 'ui/screen/suras_details/hadeth_details.dart';
+
 
 void main() {
   runApp(const MyApp());

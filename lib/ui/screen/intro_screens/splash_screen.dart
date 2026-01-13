@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:islami/ui/screen/splash_2.dart';
-import '../utils/app_assets.dart';
+import 'package:islami/ui/screen/intro_screens/splash_2.dart';
+
+import '../../utils/app_assets.dart';
+
+
 
 class Splash extends StatefulWidget {
   static const routeName = '/splash';

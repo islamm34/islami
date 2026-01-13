@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:islami/ui/screen/into_screen.dart';
-import 'package:islami/ui/screen/into_screen_3.dart';
-import 'package:islami/ui/screen/splash_2.dart';
-import '../utils/app_assets.dart';
-import '../utils/app_colors.dart';
+
+import '../../utils/app_assets.dart';
+import '../../utils/app_colors.dart';
+import 'into_screen.dart';
+import 'into_screen_3.dart';
+
 
 class IntoScreen2 extends StatelessWidget {
   const IntoScreen2({super.key});

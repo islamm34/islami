@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:islami/ui/screen/into_screen_2.dart';
-import '../utils/app_assets.dart';
-import '../utils/app_colors.dart';
+
+import '../../utils/app_assets.dart';
+import '../../utils/app_colors.dart';
+import 'into_screen_2.dart';
 
 class IntoScreen extends StatefulWidget {
   static const routeName = '/into';

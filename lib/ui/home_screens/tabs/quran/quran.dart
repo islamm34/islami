@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islami/ui/utils/app_styles.dart';
 import 'package:islami/ui/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../screen/suras_details/most_recent_sura.dart';
 import '../../../screen/suras_details/sura_details.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
@@ -13,13 +15,27 @@ class Quran extends StatefulWidget {
 }
 
 class _QuranState extends State<Quran> {
-  List<SuraDM> filteredSuras = [];
+  List<SuraDM> filteredSuras = suras;
+  List<SuraDM> MostRecentSuras = [];
+
+  Future<void> loadSurasFromSharedPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? surasIndex = prefs.getStringList("recentSuras");
+    if (surasIndex == null) return;
+    MostRecentSuras= surasIndex.map((surasIndex){
+      int index= int.parse(surasIndex);
+      return[surasIndex - 1];
+    }).cast<SuraDM>().toList();
+    setState(() {
+
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    // Initialize the filtered list with all suras at the start
     filteredSuras = suras;
+    loadSurasFromSharedPreferences();
   }
 
   Widget build(BuildContext context) {
@@ -69,11 +85,13 @@ class _QuranState extends State<Quran> {
       cursorColor: AppColors.gold,
       style: AppStyles.whiteBold16,
       onChanged: (query) {
-        if (query.trim().isEmpty) {
+        if (query
+            .trim()
+            .isEmpty) {
           filteredSuras = suras;
         } else {
           filteredSuras = suras.where((suras) {
-            return suras.nameEn.toLowerCase().contains(query.toLowerCase())||
+            return suras.nameEn.toLowerCase().contains(query.toLowerCase()) ||
                 suras.nameAr.toLowerCase().contains(query.toLowerCase());
           }).toList();
         }
@@ -86,7 +104,7 @@ class _QuranState extends State<Quran> {
     return ListView.separated(
       itemCount: filteredSuras.length,
       separatorBuilder: (context, index) =>
-          const Divider(color: AppColors.gold),
+      const Divider(color: AppColors.gold),
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         return buildSuraNameItem(context, filteredSuras[index]);
@@ -95,47 +113,53 @@ class _QuranState extends State<Quran> {
   }
 }
 
-Widget buildSuraNameItem(BuildContext context, SuraDM sura) => InkWell(
-  onTap: () {
-    Navigator.pushNamed(context, SuraDetails.routeName, arguments: sura);
-  },
-  child: Row(
-    children: [
-      Container(
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppAssets.surahNumberFrame),
-            fit: BoxFit.fill,
+extension on String {
+  void operator -(int other) {}
+}
+
+Widget buildSuraNameItem(BuildContext context, SuraDM sura) =>
+    InkWell(
+      onTap: () {
+        saveSurasToSharedPreferences(sura);
+        Navigator.pushNamed(context, SuraDetails.routeName, arguments: sura);
+      },
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppAssets.surahNumberFrame),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: Text(sura.suraIdex, style: AppStyles.whiteBold14),
           ),
-        ),
-        child: Text("${sura.index}", style: AppStyles.whiteBold14),
+          const SizedBox(width: 24),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(sura.nameEn, style: AppStyles.whiteBold20),
+                Text("${sura.verses} Verses", style: AppStyles.whiteBold14),
+              ],
+            ),
+          ),
+          Text(sura.nameAr, style: AppStyles.whiteBold20),
+        ],
       ),
-      const SizedBox(width: 24),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(sura.nameEn, style: AppStyles.whiteBold20),
-            Text("${sura.verses} Verses", style: AppStyles.whiteBold14),
-          ],
-        ),
-      ),
-      Text(sura.nameAr, style: AppStyles.whiteBold20),
-    ],
-  ),
-);
+    );
 
 class SuraDM {
   String nameEn;
   String nameAr;
   String verses;
-  int index;
+  String suraIdex;
 
   SuraDM({
     required this.nameEn,
     required this.nameAr,
     required this.verses,
-    required this.index,
+    required this.suraIdex,
   });
 }

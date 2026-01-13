@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:islami/ui/screen/into_screen_2.dart';
-import 'package:islami/ui/screen/intro_screen_4.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import 'package:islami/ui/utils/app_colors.dart';
 
-class IntoScreen3 extends StatelessWidget {
-  const IntoScreen3({super.key});
-static const routeName = '/into3';
+import 'into_screen_3.dart';
+import 'into_screen_5.dart';
+
+class IntroScreen4 extends StatelessWidget {
+  const IntroScreen4({super.key});
+static const routeName = '/into4';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
         backgroundColor: AppColors.grey,
         body: Stack(
           children: [
@@ -19,19 +20,19 @@ static const routeName = '/into3';
               right: 0,
               child: Image.asset(AppAssets.imgHeader),
             ),
-           Positioned(
-               top: 250,
-               left: 0,
-               right: 0,
-               child: Image.asset(AppAssets.quran),
-           ),
+            Positioned(
+              top: 250,
+              left: 0,
+              right: 0,
+              child: Image.asset(AppAssets.frame),
+            ),
             Positioned(
               top: 700,
               left: 20,
               right: 20,
               child: Center(
                 child: Text(
-                  "Reading the Quran",
+                  "Bearish",
                   style: TextStyle(
                     color: AppColors.gold,
                     fontSize: 24,
@@ -46,7 +47,7 @@ static const routeName = '/into3';
               right: 20,
               child: Center(
                 child: Text(
-                  "Read, and your Lord is the Most Generous",
+                  "Praise the name of your Lord, the Most High",
                   style: TextStyle(
                     color: AppColors.gold,
                     fontSize: 18,
@@ -66,7 +67,7 @@ static const routeName = '/into3';
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const IntroScreen4(),
+                        builder: (context) => const IntoScreen5(),
                       ),
                     );
                   },
@@ -96,7 +97,7 @@ static const routeName = '/into3';
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const IntoScreen2(),
+                        builder: (context) => const IntoScreen3(),
                       ),
                     );
                   },
@@ -118,6 +119,6 @@ static const routeName = '/into3';
           ],
 
         )
-    );
+    );;
   }
 }
