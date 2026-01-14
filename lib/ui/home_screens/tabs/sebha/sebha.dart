@@ -182,7 +182,6 @@ class _SebhaState extends State<Sebha> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 20),
                             padding: EdgeInsets.all(12),
@@ -196,8 +195,6 @@ class _SebhaState extends State<Sebha> {
                                   textAlign: TextAlign.center,
                                   style: AppStyles.whiteBold24,
                                 ),
-                                SizedBox(height: 10),
-                                // المرجع (إن وجد)
                                 if (_currentZikr!.reference.isNotEmpty &&
                                     !_currentZikr!.reference.contains('stop'))
                                   Padding(
