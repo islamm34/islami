@@ -68,26 +68,32 @@ class _Splash2State extends State<Splash2> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
+                currentPage == 0
+                    ? const SizedBox(width: 0,)
+                    : TextButton(
                   onPressed: () {
                     pageController.animateToPage(
-                      pageController.page!.toInt() - 1,
-                      duration: Duration(milliseconds: 200),
+                      currentPage - 1,
+                      duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInSine,
                     );
                   },
                   child: Text("Back", style: AppStyles.goldBold16),
                 ),
-                SmoothPageIndicator(
-                  controller: pageController,
-                  count: dataList.length,
-                  effect: WormEffect(
-                    dotColor: AppColors.grey2,
-                    activeDotColor: AppColors.gold,
-                    dotHeight: 8,
-                    dotWidth: 8,
+                Expanded(
+                  child: Center(
+                    child: SmoothPageIndicator(
+                      controller: pageController,
+                      count: dataList.length,
+                      effect: WormEffect(
+                        dotColor: AppColors.grey2,
+                        activeDotColor: AppColors.gold,
+                        dotHeight: 8,
+                        dotWidth: 8,
+                      ),
+                      onDotClicked: (index) {},
+                    ),
                   ),
-                  onDotClicked: (index) {},
                 ),
                 TextButton(
                   onPressed: () {
